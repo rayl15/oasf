@@ -1,8 +1,8 @@
 {
   "caption": "Technology",
   "description": "Development, management, and use of systems, devices, and software to solve problems and enhance human capabilities.",
-  "extends": "base_domain",
+  "extends": "base_class",
   "name": "technology",
-  "main_domain_name": "technology",
+  "category": "technology",
   "attributes": {}
 }

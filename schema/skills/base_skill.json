@@ -1,0 +1,9 @@
+{
+	"uid": 1,
+  "caption": "Base Skill",
+	"category": "other",
+  "description": "Skill classes",
+  "name": "base_skill",
+  "extends": "base_class",
+  "attributes": {}
+}

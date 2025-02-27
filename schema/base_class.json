@@ -1,7 +1,7 @@
 {
-  "caption": "Base Event",
+  "caption": "Base class",
   "category": "other",
-  "description": "The base event is a generic and concrete event. It also defines a set of attributes available in most event classes. As a generic event that does not belong to any event category, it could be used to log events that are not otherwise defined by the schema.",
+  "description": "The base class is a generic and concrete class for all categories.",
   "name": "base_class",
   "attributes": {
     "name": {
@@ -35,7 +35,7 @@
       "requirement": "required",
       "enum": {
         "0": {
-          "caption": "Base Event"
+          "caption": "Base class"
         }
       }
     }

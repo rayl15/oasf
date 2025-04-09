@@ -258,19 +258,9 @@
     "deployment_options": {
       "caption": "Deployment Options",
       "description": "List of possible methods to instantiate or consume the agent.  Any of the available option could be used. Every option could be associated with a unique name within this agent. If present, when another manifest refers to this manifest, it can also select the preferred deployment option.",
-      "type": "object",
-      "is_array": true,
-      "enum": {
-        "source_code_deployment": {
-          "caption": "Source Code Deployment"
-        },
-        "agent_deployment": {
-          "caption": "Agent Deployment"
-        },
-        "docker_deployment": {
-          "caption": "Docker Deployment"
-        }
-      }
+      "type": "deployment_option",
+      "is_enum": true,
+      "is_array": true
     },
     "digest": {
       "caption": "Digest",
@@ -310,31 +300,24 @@
       "caption": "Schema Extension",
       "description": "Extension model that describes agents and its capabilities more in depth.",
       "type": "class_t",
-      "class_path": "features",
-      "class_name": "base_feature",
-      "class_caption": "Extension"
+      "class_type": "base_feature",
+      "path": "features",
+      "is_enum": true
     },
     "extensions": {
       "caption": "Schema Extensions",
       "description": "List of extension models that describe this agent and its capabilities more in depth.",
       "type": "class_t",
-      "class_path": "features",
-      "class_name": "base_feature",
-      "class_caption": "Extension",
+      "class_type": "base_feature",
+      "path": "features",
+      "is_enum": true,
       "is_array": true
     },
     "framework_config": {
       "caption": "Agentic Framework Config",
       "description": "Config for an agent of an agentic framework.",
-      "type": "object",
-      "enum": {
-        "llamaindex_config": {
-          "caption": "Llamaindex Config"
-        },
-        "langgraph_config": {
-          "caption": "LangGraph Config"
-        }
-      }
+      "type": "agentic_framework_config",
+      "is_enum": true
     },
     "framework_type": {
       "caption": "Framework Type",
@@ -576,17 +559,17 @@
       "caption": "Skill",
       "description": "A skill that apply to an agent.",
       "type": "class_t",
-      "class_path": "classes/base_skill",
-      "class_name": "base_skill",
-      "class_caption": "Skill"
+      "class_type": "base_skill",
+      "path": "skills",
+      "is_enum": true
     },
     "skills": {
       "caption": "Skills",
       "description": "Skills that apply to an agent.",
       "type": "class_t",
-      "class_path": "skills",
-      "class_name": "base_skill",
-      "class_caption": "Skill",
+      "class_type": "base_skill",
+      "path": "skills",
+      "is_enum": true,
       "is_array": true
     },
     "specs": {
@@ -741,7 +724,7 @@
       },
       "class_t": {
         "caption": "Class",
-        "description": "Name of the class linked to the object.",
+        "description": "Name of the class associated to an attribute.",
         "type": "string_t",
         "type_name": "String"
       },

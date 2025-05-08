@@ -9,24 +9,29 @@
       "description": "The name of the agent. For example: <code>Marketing Strategy Agent</code>.",
       "requirement": "required"
     },
-    "digest": {
-      "caption": "Agent ID",
-      "description": "The digest of the targeted content, conforming to the requirements. Retrieved content SHOULD be verified against this digest when consumed via untrusted sources. The digest property acts as a content identifier, enabling content addressability. It uniquely identifies content by taking a collision-resistant hash of the bytes. If the digest can be communicated in a secure manner, one can verify content from an insecure source by recalculating the digest independently, ensuring the content has not been modified. The value of the digest property is a string consisting of an algorithm portion and an encoded portion. The algorithm specifies the cryptographic hash function and encoding used for the digest; the encoded portion contains the encoded result of the hash function. A digest MUST be calculated for all properties except the digest itself which MUST be ignored during the calculation. The model SHOULD then be updated with the calculated digest.",
+    "description": {
+      "caption": "Agent Description",
+      "description": "The description of the agent.",
       "requirement": "required"
     },
     "version": {
       "caption": "Agent Version",
-      "description": "property contains the version of the agent. Values MAY conform to a specific versioning schema.",
+      "description": "The version of the agent. Values MAY conform to a specific versioning schema.",
+      "requirement": "required"
+    },
+    "schema_version": {
+      "caption": "Schema Version",
+      "description": "Version of OASF schema used by the agent data model.",
       "requirement": "required"
     },
     "created_at": {
       "caption": "Creation Time",
-      "description": "Includes the creation timestamp. Value MUST conform to RFC 3339.",
+      "description": "Includes the creation timestamp. Value MUST conform to <a target='_blank' href='https://www.rfc-editor.org/rfc/rfc3339.html'>RFC-3339</a>. For example:<br><code>2024-09-10T23:20:50.520Z</code>,<br><code>2024-09-10 23:20:50.520789Z</code>.",
       "requirement": "required"
     },
     "authors": {
       "caption": "Authors",
-      "description": "Specifies the authors list of an agent. Values inside the list should satisfy the following grammar: <code>author := author-name <author-email></code>.",
+      "description": "Specifies the authors list of an agent.",
       "requirement": "required"
     },
     "annotations": {

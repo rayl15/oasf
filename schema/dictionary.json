@@ -156,7 +156,7 @@
     "created_at": {
       "caption": "Created Time",
       "description": "The time when the object was created. See specific usage.",
-      "type": "timestamp_t"
+      "type": "datetime_t"
     },
     "custom_objects_streaming": {
       "caption": "Custom Objects Streaming",
@@ -268,7 +268,7 @@
       "description": "Extension model that describes agents and its capabilities more in depth.",
       "type": "class_t",
       "class_type": "base_feature",
-      "path": "features",
+      "family": "feature",
       "is_enum": true
     },
     "extensions": {
@@ -276,7 +276,7 @@
       "description": "List of extension models that describe this agent and its capabilities more in depth.",
       "type": "class_t",
       "class_type": "base_feature",
-      "path": "features",
+      "family": "feature",
       "is_enum": true,
       "is_array": true
     },
@@ -456,7 +456,7 @@
       "description": "A skill that apply to an agent.",
       "type": "class_t",
       "class_type": "base_skill",
-      "path": "skills",
+      "family": "skill",
       "is_enum": true
     },
     "skills": {
@@ -464,7 +464,7 @@
       "description": "Skills that apply to an agent.",
       "type": "class_t",
       "class_type": "base_skill",
-      "path": "skills",
+      "family": "skill",
       "is_enum": true,
       "is_array": true
     },
@@ -603,7 +603,7 @@
         "observable": 8,
         "caption": "Hash",
         "description": "Hash. A unique value that corresponds to the content of the file, image, ja3_hash or hassh found in the schema. For example:<br> MD5: <code>3172ac7e2b55cbb81f04a6e65855a628</code>.",
-        "regex": "^[a-fA-F0-9]+$",
+        "regex": "^sha256:[a-fA-F0-9]+$",
         "type": "string_t",
         "type_name": "String"
       },

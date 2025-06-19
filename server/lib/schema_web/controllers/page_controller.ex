@@ -51,7 +51,21 @@ defmodule SchemaWeb.PageController do
   def feature_graph(conn, %{"id" => id} = params) do
     # Special handling for base_class which is not a feature
     if id == "base_class" do
-      redirect(conn, to: "/classes/base_class")
+      # Instead of trying to redirect, render the base_class graph directly
+      case SchemaWeb.SchemaController.object_ex("base_class", params) do
+        nil ->
+          send_resp(conn, 404, "Not Found: base_class")
+          
+        class ->
+          data =
+            Schema.Graph.build(class)
+            
+          render(conn, "object_graph.html",
+            extensions: Schema.extensions(),
+            profiles: SchemaController.get_profiles(params),
+            data: data
+          )
+      end
     else
       case SchemaWeb.SchemaController.feature_ex(id, params) do
         nil ->
@@ -376,7 +390,23 @@ defmodule SchemaWeb.PageController do
     
     # Special handling for base_class which is not a feature
     if id == "base_class" do
-      redirect(conn, to: "/classes/base_class")
+      # Instead of trying to redirect, render the base_class directly
+      case Schema.class(extension, "base_class") do
+        nil ->
+          send_resp(conn, 404, "Not Found: base_class")
+          
+        data ->
+          data =
+            data
+            |> sort_attributes()
+            |> Map.put(:key, Schema.Utils.to_uid(extension, "base_class"))
+            
+          render(conn, "class.html",
+            extensions: Schema.extensions(),
+            profiles: SchemaController.get_profiles(params),
+            data: data
+          )
+      end
     else
       case Schema.feature(extension, id) do
         nil ->

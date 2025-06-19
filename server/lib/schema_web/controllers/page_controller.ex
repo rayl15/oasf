@@ -49,20 +49,25 @@ defmodule SchemaWeb.PageController do
 
   @spec feature_graph(Plug.Conn.t(), any) :: Plug.Conn.t()
   def feature_graph(conn, %{"id" => id} = params) do
-    case SchemaWeb.SchemaController.feature_ex(id, params) do
-      nil ->
-        send_resp(conn, 404, "Not Found: #{id}")
+    # Special handling for base_class which is not a feature
+    if id == "base_class" do
+      redirect(conn, to: "/classes/base_class")
+    else
+      case SchemaWeb.SchemaController.feature_ex(id, params) do
+        nil ->
+          send_resp(conn, 404, "Not Found: #{id}")
 
-      class ->
-        data =
-          Schema.Graph.build(class)
-          |> Map.put(:categories_path, "main_features")
+        class ->
+          data =
+            Schema.Graph.build(class)
+            |> Map.put(:categories_path, "main_features")
 
-        render(conn, "class_graph.html",
-          extensions: Schema.extensions(),
-          profiles: SchemaController.get_profiles(params),
-          data: data
-        )
+          render(conn, "class_graph.html",
+            extensions: Schema.extensions(),
+            profiles: SchemaController.get_profiles(params),
+            data: data
+          )
+      end
     end
   end
 
@@ -368,22 +373,27 @@ defmodule SchemaWeb.PageController do
   @spec features(Plug.Conn.t(), any) :: Plug.Conn.t()
   def features(conn, %{"id" => id} = params) do
     extension = params["extension"]
+    
+    # Special handling for base_class which is not a feature
+    if id == "base_class" do
+      redirect(conn, to: "/classes/base_class")
+    else
+      case Schema.feature(extension, id) do
+        nil ->
+          send_resp(conn, 404, "Not Found: #{id}")
 
-    case Schema.feature(extension, id) do
-      nil ->
-        send_resp(conn, 404, "Not Found: #{id}")
+        data ->
+          data =
+            data
+            |> sort_attributes()
+            |> Map.put(:key, Schema.Utils.to_uid(extension, id))
 
-      data ->
-        data =
-          data
-          |> sort_attributes()
-          |> Map.put(:key, Schema.Utils.to_uid(extension, id))
-
-        render(conn, "class.html",
-          extensions: Schema.extensions(),
-          profiles: SchemaController.get_profiles(params),
-          data: data
-        )
+          render(conn, "class.html",
+            extensions: Schema.extensions(),
+            profiles: SchemaController.get_profiles(params),
+            data: data
+          )
+      end
     end
   end
 

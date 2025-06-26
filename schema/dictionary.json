@@ -3,9 +3,19 @@
   "description": "The Attribute Dictionary defines attributes and includes references to the classes and objects in which they are used.",
   "name": "dictionary",
   "attributes": {
+    "a2a_card": {
+      "caption": "A2A Agent Card Data",
+      "description": "Content of the A2A card in JSON format.",
+      "type": "json_t"
+    },
+    "acp": {
+      "caption": "Agent Connect Protocol Specs",
+      "description": "Specification of agent capabilities, config, input, output, and interrupts.",
+      "type": "agent_connect_protocol"
+    },
     "agent": {
       "caption": "Agent",
-      "description": "An Agent (also known as a Sensor) is typically installed on an Operating System (OS) and serves as a specialized software component that can be designed to monitor, detect, collect, archive, or take action. These activities and possible actions are defined by the upstream system controlling the Agent and its intended purpose. For instance, an Agent can include Endpoint Detection & Response (EDR) agents, backup/disaster recovery sensors, Application Performance Monitoring or profiling sensors, and similar software.",
+      "description": "A record of an agent.",
       "type": "agent"
     },
     "agent_deps": {
@@ -25,10 +35,36 @@
       "type": "agent",
       "is_array": true
     },
+    "agent_signature": {
+      "caption": "Signature",
+      "description": "A digitital signature is used to verify the authenticity and integrity of the data. See specific usage.",
+      "type": "agent_signature"
+    },
+    "algorithm": {
+      "caption": "Algorithm",
+      "description": "The algorithm used. See specific usage.",
+      "type": "string_t"
+    },
     "annotations": {
       "caption": "Annotations",
       "description": "Provides additional metadata associated with the object. See specific usage.",
       "type": "string_map_t"
+    },
+    "api_base": {
+      "caption": "API Base URL",
+      "description": "URL of the API base for the LLM model (e.g., 'https://api.openai.com/v1').",
+      "type": "string_t"
+    },
+    "api_key": {
+      "caption": "API Key",
+      "description": "API key for accessing the LLM model, if required by the provider.",
+      "type": "string_t"
+    },
+    "args": {
+      "caption": "Arguments",
+      "description": "A list of arguments to be passed to a command. See specific usage.",
+      "type": "string_t",
+      "is_array": true
     },
     "authentication": {
       "caption": "Authentication",
@@ -62,32 +98,20 @@
       "sibling": "category",
       "type": "integer_t"
     },
-    "category_name": {
-      "caption": "Category",
-      "description": "The class category name, as defined by category_uid value.",
-      "type": "string_t"
+    "certificate": {
+      "caption": "Certificate",
+      "description": "Base64-encoded signing certificate.",
+      "type": "bytestring_t"
     },
-    "category_uid": {
-      "caption": "Category ID",
-      "description": "The category unique identifier of the class.",
-      "sibling": "category_name",
-      "type": "integer_t"
+    "cid": {
+      "caption": "Content Identifier",
+      "description": "Content Identifier (CID). See specific usage.",
+      "type": "uuid_t"
     },
     "class": {
       "caption": "Class",
       "description": "The class name of the object. See specific usage.",
       "type": "string_t"
-    },
-    "class_name": {
-      "caption": "Class",
-      "description": "The class name, as defined by class_uid value.",
-      "type": "string_t"
-    },
-    "class_uid": {
-      "caption": "Class ID",
-      "description": "The unique identifier of a class. A class describes the available attributes.",
-      "sibling": "class_name",
-      "type": "integer_t"
     },
     "classification": {
       "caption": "Classification",
@@ -142,6 +166,21 @@
       "description": "This object contains an instance of an OpenAPI schema object.",
       "type": "json_t"
     },
+    "content_bundle": {
+      "caption": "Content Bundle",
+      "description": "Base64-encoded signature bundle.",
+      "type": "bytestring_t"
+    },
+    "content_type": {
+      "caption": "Content Type",
+      "description": "Type of the content. See specific usage.",
+      "type": "string_t"
+    },
+    "command": {
+      "caption": "Command",
+      "description": "A command to be ran. See specific usage.",
+      "type": "string_t"
+    },
     "cost_score": {
       "caption": "Cost Score",
       "description": "Cost score.",
@@ -164,8 +203,9 @@
     },
     "data": {
       "caption": "Data",
-      "description": "Supported data type.",
-      "type": "object"
+      "description": "Data associated with the agent extension. This is a JSON object that contains the data specific to the extension.",
+      "type": "extension_data",
+      "is_enum": true
     },
     "datasets": {
       "caption": "Datasets",
@@ -295,6 +335,11 @@
       "description": "Graph of the framework config.",
       "type": "string_t"
     },
+    "id": {
+      "caption": "ID",
+      "description": "A unique identifier. See specific usage.",
+      "type": "integer_t"
+    },
     "image": {
       "caption": "Docker Image",
       "description": "The Docker image that pertains to the class or object. See specific usage.",
@@ -309,6 +354,11 @@
       "caption": "Input",
       "description": "A json input.",
       "type": "json_t"
+    },
+    "input_id": {
+      "caption": "Input ID",
+      "description": "The unique identifier of the input. See specific usage.",
+      "type": "string_t"
     },
     "interrupt_payload": {
       "caption": "Interrupt Payload",
@@ -331,6 +381,18 @@
       "type": "interrupts",
       "is_array": true
     },
+    "llm_models": {
+      "caption": "List of LLM Model Data",
+      "description": "Collection of LLM models supported by the agent, including their configurations and parameters.",
+      "type": "llm_model",
+      "is_array": true
+    },
+    "llm_prompts": {
+      "caption": "List of LLM Prompts",
+      "description": "List of common prompts used for LLM interactions with the agent, including their configurations and parameters.",
+      "type": "llm_prompt",
+      "is_array": true
+    },
     "locator": {
       "caption": "Agent Locator",
       "description": "Locators provide actual artifact locators of an agent. For example, this can reference sources such as helm charts, docker images, binaries, and so on.",
@@ -340,6 +402,18 @@
       "caption": "Agent Locators",
       "description": "Locators provide actual artifact locators of an agent. For example, this can reference sources such as helm charts, docker images, binaries, and so on.",
       "type": "locator",
+      "is_array": true
+    },
+    "mcp_server_inputs": {
+      "caption": "MCP Server Inputs",
+      "description": "List of inputs that the agent can provide to the MCP servers.",
+      "type": "mcp_server_input",
+      "is_array": true
+    },
+    "mcp_servers": {
+      "caption": "MCP Servers",
+      "description": "List of MCP servers that the agent can connect to.",
+      "type": "mcp_server_configuration",
       "is_array": true
     },
     "metadata": {
@@ -384,6 +458,11 @@
       "description": "The unique identifier of an object's parent object. See specific usage.",
       "type": "string_t"
     },
+    "password": {
+      "caption": "Password",
+      "description": "The password that pertains to the class or object. See specific usage.",
+      "type": "boolean_t"
+    },
     "path": {
       "caption": "Path",
       "description": "The path that pertains to the class or object. See specific usage.",
@@ -394,10 +473,25 @@
       "description": "The TCP/UDP port number associated with a connection. See specific usage.",
       "type": "port_t"
     },
+    "previous_record_cid": {
+      "caption": "Previous Agent Record CID",
+      "description": "Content Identifier (CID) of an Agent Record's parent record.",
+      "type": "uuid_t"
+    },
     "protocol": {
       "caption": "ACP Endpoint",
       "description": "ACP endpoint description.",
       "type": "acp_endpoint"
+    },
+    "prompt": {
+      "caption": "Prompt Text",
+      "description": "A specific input or instruction given to a large language model (LLM) to generate text or perform a task.",
+      "type": "string_t"
+    },
+    "provider": {
+      "caption": "Provider",
+      "description": "Name of the provider of a service, tool, object, etc. See specific usage.",
+      "type": "string_t"
     },
     "publisher": {
       "caption": "Publisher",
@@ -408,6 +502,11 @@
       "caption": "Quality Score",
       "description": "Overall score.",
       "type": "float_t"
+    },
+    "record": {
+      "caption": "Agent Record",
+      "description": "A record of an agent.",
+      "type": "agent"
     },
     "ref": {
       "caption": "Reference",
@@ -435,6 +534,22 @@
       "description": "An instance of an OpenAPI schema object, formatted as per the OpenAPI specs: <a target='_blank' href='https://spec.openapis.org/oas/v3.1.1.html#schema-object' >Schema Object</a>.",
       "type": "json_t"
     },
+    "object_type": {
+      "caption": "Schema Type",
+      "description": "Schema type of the object. Can be used to identify the format of the data.",
+      "type": "string_t",
+      "enum": {
+        "0": {
+          "caption": "Unspecified"
+        },
+        "1": {
+          "caption": "Raw"
+        },
+        "1000": {
+          "caption": "OASF v0.4.0"
+        }
+      }
+    },
     "schema_version": {
       "caption": "Schema Version",
       "description": "Version of the OASF schema.",
@@ -444,6 +559,16 @@
       "caption": "Security Score",
       "description": "Security score.",
       "type": "float_t"
+    },
+    "signed_at": {
+      "caption": "Signed Time",
+      "description": "Timestamp when signing occurred. See specific usage.",
+      "type": "datetime_t"
+    },
+    "signature": {
+      "caption": "Signature",
+      "description": "Base64-encoded signature.",
+      "type": "bytestring_t"
     },
     "size": {
       "caption": "Size",
@@ -466,11 +591,6 @@
       "family": "skill",
       "is_enum": true,
       "is_array": true
-    },
-    "acp": {
-      "caption": "Agent Connect Protocol Specs",
-      "description": "Specification of agent capabilities, config, input, output, and interrupts.",
-      "type": "agent_connect_protocol"
     },
     "streaming": {
       "caption": "Streaming Modes",
@@ -515,7 +635,7 @@
     },
     "type_uid": {
       "caption": "Type ID",
-      "description": "The class type ID. It identifies the class's semantics and structure. The value is calculated by the logging system as: <code>class_uid * 100 + activity_id</code>.",
+      "description": "The class type ID. It identifies the class's semantics and structure. The value is calculated by the logging system as: <code>id * 100 + activity_id</code>.",
       "sibling": "type_name",
       "type": "long_t"
     },

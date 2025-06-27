@@ -916,6 +916,25 @@ defmodule Schema do
   def deep_clean(data) do
     reduce_attributes(data)
   end
+  
+  @doc """
+  Returns the caption of a class by its name and type.
+  """
+  @spec get_caption(String.t(), String.t()) :: String.t()
+  def get_caption(class_name, class_type) do
+    case class_type do
+      "skill" -> 
+        skill = skill(class_name)
+        if skill, do: skill[:caption], else: class_name
+      "domain" -> 
+        domain = domain(class_name)
+        if domain, do: domain[:caption], else: class_name
+      "feature" -> 
+        feature = feature(class_name)
+        if feature, do: feature[:caption], else: class_name
+      _ -> class_name
+    end
+  end
 
   def apply_profiles(types, _profiles, 0) do
     Enum.into(types, %{}, fn {name, type} ->

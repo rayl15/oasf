@@ -39,6 +39,15 @@ SPDX-License-Identifier: Apache-2.0
       <span class="text-secondary">[<a href="<%= class_graph_path(@conn, @data)  %>"><%= @data[:uid] %></a>]<sup><%= extension || "" %></sup>
         <%= class_type %> class
       </span>
+      <% extends = @data[:extends] || "" %>
+      <!-- DEBUG: extends = <%= extends %> -->
+      <span class="small">
+        <%= if extends != "" and not String.starts_with?(extends, "_") do %>
+          <span>
+            extends <a href="<%= Routes.static_path(@conn, "/#{class_type}s/" <> extends) %>"><%= Schema.get_caption(extends, class_type) %></a>
+          </span>
+        <% end %>
+      </span>
     </h3>
 
     <%= if category_name != nil do %>

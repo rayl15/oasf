@@ -3,7 +3,7 @@
   "description": "The Attribute Dictionary defines attributes and includes references to the classes and objects in which they are used.",
   "name": "dictionary",
   "attributes": {
-    "a2a_card": {
+    "a2a_card_data": {
       "caption": "A2A Agent Card Data",
       "description": "Content of the A2A card in JSON format.",
       "type": "json_t"
@@ -12,11 +12,6 @@
       "caption": "Agent Connect Protocol Specs",
       "description": "Specification of agent capabilities, config, input, output, and interrupts.",
       "type": "agent_connect_protocol"
-    },
-    "agent": {
-      "caption": "Agent",
-      "description": "A record of an agent.",
-      "type": "agent"
     },
     "agent_deps": {
       "caption": "Agent Dependencies",
@@ -28,12 +23,6 @@
       "caption": "Agent Identifier",
       "description": "Agent identifier",
       "type": "uuid_t"
-    },
-    "agent_list": {
-      "caption": "Agent List",
-      "description": "A list of <code>agent</code> objects associated with a device, endpoint, or resource.",
-      "type": "agent",
-      "is_array": true
     },
     "agent_signature": {
       "caption": "Signature",
@@ -87,59 +76,10 @@
       "description": "Declares what invocation features this agent is capable of.",
       "type": "capabilities"
     },
-    "category": {
-      "caption": "Category",
-      "description": "The object category, normalized to the caption of <code>category_id</code>. See specific usage.",
-      "type": "string_t"
-    },
-    "category_id": {
-      "caption": "Category ID",
-      "description": "The normalized identifier of the object category. See specific usage.",
-      "sibling": "category",
-      "type": "integer_t"
-    },
     "certificate": {
       "caption": "Certificate",
       "description": "Base64-encoded signing certificate.",
       "type": "bytestring_t"
-    },
-    "cid": {
-      "caption": "Content Identifier",
-      "description": "Content Identifier (CID). See specific usage.",
-      "type": "uuid_t"
-    },
-    "class": {
-      "caption": "Class",
-      "description": "The class name of the object. See specific usage.",
-      "type": "string_t"
-    },
-    "classification": {
-      "caption": "Classification",
-      "description": "The classification as defined by the vendor.",
-      "type": "string_t"
-    },
-    "classification_ids": {
-      "caption": "Classification IDs",
-      "description": "The list of normalized classification identifiers. See specific usage.",
-      "sibling": "classifications",
-      "type": "integer_t",
-      "enum": {
-        "0": {
-          "caption": "Unknown",
-          "description": "The classification is unknown."
-        },
-        "99": {
-          "caption": "Other",
-          "description": "The classification is not mapped. See the <code>classifications</code> attribute, which contains a data source specific value."
-        }
-      },
-      "is_array": true
-    },
-    "classifications": {
-      "caption": "Classifications",
-      "description": "The list of malware classifications, normalized to the captions of the classification_id values. In the case of 'Other', they are defined by the source.",
-      "type": "string_t",
-      "is_array": true
     },
     "communication_protocols": {
       "caption": "Communication Protocols",
@@ -155,8 +95,8 @@
         "gRPC": {
           "caption": "gRPC"
         },
-        "AGP": {
-          "caption": "AGP"
+        "SLIM": {
+          "caption": "SLIM"
         }
       },
       "is_array": true
@@ -201,18 +141,6 @@
       "description": "This describes the format of an Update in the streaming. Must be specified if `streaming.custom` capability is true and cannot be specified otherwise. Format follows: <a target='_blank' href='https://spec.openapis.org/oas/v3.1.1.html#schema-object'>Schema Object</a>.",
       "type": "json_t"
     },
-    "data": {
-      "caption": "Data",
-      "description": "Data associated with the agent extension. This is a JSON object that contains the data specific to the extension.",
-      "type": "extension_data",
-      "is_enum": true
-    },
-    "datasets": {
-      "caption": "Datasets",
-      "description": "Datasets array.",
-      "type": "dataset",
-      "is_array": true
-    },
     "data_platform_integrations": {
       "caption": "Data Platform Integrations",
       "description": "Data platforms supported by the agent for observability.",
@@ -224,11 +152,6 @@
       "description": "The actual data points collected for the metric, which can be a single value or a collection of values over time.",
       "type": "key_value_object",
       "is_array": true
-    },
-    "data_schema": {
-      "caption": "Supported Data Schema",
-      "description": "Data schema supported by the agent for observability.",
-      "type": "data_schema"
     },
     "default_value": {
       "caption": "Default Value",
@@ -262,11 +185,21 @@
       "description": "The digest of the targeted content, conforming to the requirements. Retrieved content SHOULD be verified against this digest when consumed via untrusted sources. The digest property acts as a content identifier, enabling content addressability. It uniquely identifies content by taking a collision-resistant hash of the bytes. If the digest can be communicated in a secure manner, one can verify content from an insecure source by recalculating the digest independently, ensuring the content has not been modified. The value of the digest property is a string consisting of an algorithm portion and an encoded portion. The algorithm specifies the cryptographic hash function and encoding used for the digest; the encoded portion contains the encoded result of the hash function. A digest MUST be calculated for all properties except the digest itself which MUST be ignored during the calculation. The model SHOULD then be updated with the calculated digest.",
       "type": "file_hash_t"
     },
+    "env": {
+      "caption": "Environment Variables",
+      "description": "Environment variables. See specific usage.",
+      "type": "string_map_t"
+    },
     "env_deps": {
       "caption": "Values for Dependencies",
       "description": "List of environment variable values to be set for the agent dependencies.",
       "type": "env_var_values",
       "is_array": true
+    },
+    "env_file": {
+      "caption": "Environment Variables File",
+      "description": "Path to a file containing environment variables.",
+      "type": "string_t"
     },
     "env_vars": {
       "caption": "Environment Variables",
@@ -280,10 +213,15 @@
       "type": "env_var_values",
       "is_array": true
     },
-    "errors": {
-      "caption": "Errors",
-      "description": "",
-      "type": "metric",
+    "evaluation_data": {
+      "caption": "Data",
+      "description": "Data supported by the agent for evaluation.",
+      "type": "evaluation_data"
+    },
+    "evaluation_datasets": {
+      "caption": "Datasets",
+      "description": "Datasets array.",
+      "type": "evaluation_dataset",
       "is_array": true
     },
     "evaluation_report": {
@@ -291,24 +229,10 @@
       "description": "The report of an evaluation.",
       "type": "evaluation_report"
     },
-    "events": {
-      "caption": "Events",
-      "description": "An event object that describes the event.",
-      "type": "object",
-      "is_array": true
-    },
     "export_format": {
       "caption": "Export Format",
       "description": "Format used by the agent for exporting observability data.",
       "type": "string_t"
-    },
-    "extension": {
-      "caption": "Schema Extension",
-      "description": "Extension model that describes agents and its capabilities more in depth.",
-      "type": "class_t",
-      "class_type": "base_feature",
-      "family": "feature",
-      "is_enum": true
     },
     "extensions": {
       "caption": "Schema Extensions",
@@ -318,6 +242,11 @@
       "family": "feature",
       "is_enum": true,
       "is_array": true
+    },
+    "extension_data": {
+      "caption": "Data",
+      "description": "Data associated with the agent extension. This is a JSON object that contains the data specific to the extension.",
+      "type": "json_t"
     },
     "framework_config": {
       "caption": "Agentic Framework Config",
@@ -334,6 +263,11 @@
       "caption": "Graph",
       "description": "Graph of the framework config.",
       "type": "string_t"
+    },
+    "headers": {
+      "caption": "Headers",
+      "description": "HTTP headers (e.g. for authentication). See specific usage.",
+      "type": "string_map_t"
     },
     "id": {
       "caption": "ID",
@@ -354,11 +288,6 @@
       "caption": "Input",
       "description": "A json input.",
       "type": "json_t"
-    },
-    "input_id": {
-      "caption": "Input ID",
-      "description": "The unique identifier of the input. See specific usage.",
-      "type": "string_t"
     },
     "interrupt_payload": {
       "caption": "Interrupt Payload",
@@ -381,11 +310,21 @@
       "type": "interrupts",
       "is_array": true
     },
+    "llm_model_data": {
+      "caption": "Data",
+      "description": "Data supported by the agent for LLM model.",
+      "type": "llm_model_data"
+    },
     "llm_models": {
       "caption": "List of LLM Model Data",
       "description": "Collection of LLM models supported by the agent, including their configurations and parameters.",
       "type": "llm_model",
       "is_array": true
+    },
+    "llm_prompt_data": {
+      "caption": "Data",
+      "description": "Data supported by the agent for LLM prompts.",
+      "type": "llm_prompt_data"
     },
     "llm_prompts": {
       "caption": "List of LLM Prompts",
@@ -393,26 +332,25 @@
       "type": "llm_prompt",
       "is_array": true
     },
-    "locator": {
-      "caption": "Agent Locator",
-      "description": "Locators provide actual artifact locators of an agent. For example, this can reference sources such as helm charts, docker images, binaries, and so on.",
-      "type": "locator"
-    },
     "locators": {
       "caption": "Agent Locators",
       "description": "Locators provide actual artifact locators of an agent. For example, this can reference sources such as helm charts, docker images, binaries, and so on.",
       "type": "locator",
       "is_array": true
     },
-    "mcp_server_inputs": {
-      "caption": "MCP Server Inputs",
-      "description": "List of inputs that the agent can provide to the MCP servers.",
-      "type": "mcp_server_input",
-      "is_array": true
+    "manifest_data": {
+      "caption": "Data",
+      "description": "Data supported by the agent for runtime manifest.",
+      "type": "manifest_data"
     },
-    "mcp_servers": {
-      "caption": "MCP Servers",
-      "description": "List of MCP servers that the agent can connect to.",
+    "mcp_server_data": {
+      "caption": "Data",
+      "description": "Data supported by the agent for MCP server.",
+      "type": "mcp_server_data"
+    },
+    "mcp_server_configurations": {
+      "caption": "MCP Server Configurations",
+      "description": "List of configurations of MCP servers that the agent can connect to.",
       "type": "mcp_server_configuration",
       "is_array": true
     },
@@ -422,21 +360,31 @@
       "type": "key_value_object",
       "is_array": true
     },
-    "metric": {
-      "caption": "Metric",
-      "description": "Defines a metric used to evaluate system performance, cost, and other critical factors.",
-      "type": "metric"
-    },
     "metrics": {
       "caption": "Metrics",
       "description": "Defines the key metrics used to evaluate system performance, cost, and other critical factors.",
       "type": "metric",
       "is_array": true
     },
+    "model": {
+      "caption": "Model",
+      "description": "Name of the LLM model including its version (e.g., 'gpt-3.5-turbo').",
+      "type": "string_t"
+    },
     "name": {
       "caption": "Name",
       "description": "The name of the entity. See specific usage.",
       "type": "string_t"
+    },
+    "observability_data": {
+      "caption": "Data",
+      "description": "Data supported by the agent for observability.",
+      "type": "observability_data"
+    },
+    "observability_data_schema": {
+      "caption": "Supported Data Schema",
+      "description": "Data schema supported by the agent for observability.",
+      "type": "observability_data_schema"
     },
     "output": {
       "caption": "Output",
@@ -453,25 +401,10 @@
       "description": "Overall scores of the Agent across all evaluation.",
       "type": "overall_scores"
     },
-    "parent_uid": {
-      "caption": "Parent Unique ID",
-      "description": "The unique identifier of an object's parent object. See specific usage.",
-      "type": "string_t"
-    },
-    "password": {
-      "caption": "Password",
-      "description": "The password that pertains to the class or object. See specific usage.",
-      "type": "boolean_t"
-    },
     "path": {
       "caption": "Path",
       "description": "The path that pertains to the class or object. See specific usage.",
       "type": "string_t"
-    },
-    "port": {
-      "caption": "Port",
-      "description": "The TCP/UDP port number associated with a connection. See specific usage.",
-      "type": "port_t"
     },
     "previous_record_cid": {
       "caption": "Previous Agent Record CID",
@@ -503,11 +436,6 @@
       "description": "Overall score.",
       "type": "float_t"
     },
-    "record": {
-      "caption": "Agent Record",
-      "description": "A record of an agent.",
-      "type": "agent"
-    },
     "ref": {
       "caption": "Reference",
       "description": "Reference to the agent in the agent directory. It includes the version and the locator.",
@@ -534,25 +462,14 @@
       "description": "An instance of an OpenAPI schema object, formatted as per the OpenAPI specs: <a target='_blank' href='https://spec.openapis.org/oas/v3.1.1.html#schema-object' >Schema Object</a>.",
       "type": "json_t"
     },
-    "object_type": {
-      "caption": "Schema Type",
-      "description": "Schema type of the object. Can be used to identify the format of the data.",
-      "type": "string_t",
-      "enum": {
-        "0": {
-          "caption": "Unspecified"
-        },
-        "1": {
-          "caption": "Raw"
-        },
-        "1000": {
-          "caption": "OASF v0.4.0"
-        }
-      }
-    },
     "schema_version": {
       "caption": "Schema Version",
       "description": "Version of the OASF schema.",
+      "type": "string_t"
+    },
+    "scope": {
+      "caption": "Scope",
+      "description": "Boundaries or permissions within which a program or process can operate. See specific usage.",
       "type": "string_t"
     },
     "security_score": {
@@ -607,47 +524,14 @@
       "description": "This is `true` if the agent supports run threads. If this is `false`, then the threads tagged with `Threads` are not available. If missing, it means `false`.",
       "type": "boolean_t"
     },
+    "tool_configuration": {
+      "caption": "Tool Configuration",
+      "description": "Configuration for tools that the MCP server can use.",
+      "type": "json_t"
+    },
     "type": {
       "caption": "Type",
       "description": "The type of an object or value, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. See specific usage.",
-      "type": "string_t"
-    },
-    "type_id": {
-      "caption": "Type ID",
-      "description": "The normalized type identifier of an object. See specific usage.",
-      "sibling": "type",
-      "type": "integer_t",
-      "enum": {
-        "0": {
-          "caption": "Unknown",
-          "description": "The type is unknown."
-        },
-        "99": {
-          "caption": "Other",
-          "description": "The type is not mapped. See the <code>type</code> attribute, which contains a data source specific value."
-        }
-      }
-    },
-    "type_name": {
-      "caption": "Type Name",
-      "description": "The class type name, as defined by the type_uid.",
-      "type": "string_t"
-    },
-    "type_uid": {
-      "caption": "Type ID",
-      "description": "The class type ID. It identifies the class's semantics and structure. The value is calculated by the logging system as: <code>id * 100 + activity_id</code>.",
-      "sibling": "type_name",
-      "type": "long_t"
-    },
-    "types": {
-      "caption": "Types",
-      "description": "The type/s of an entity. See specific usage.",
-      "type": "string_t",
-      "is_array": true
-    },
-    "uid": {
-      "caption": "Unique ID",
-      "description": "The unique identifier. See specific usage.",
       "type": "string_t"
     },
     "unmapped": {
@@ -677,7 +561,7 @@
     },
     "values": {
       "caption": "Values",
-      "description": "List of key / values pairs.",
+      "description": "List of key/value pairs.",
       "type": "key_value_object",
       "is_array": true
     }

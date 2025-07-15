@@ -421,7 +421,7 @@ defmodule SchemaWeb.SchemaController do
               },
               export_format: "csv"
             },
-            name: "schema.oasf.agntcy.org/feature/observability",
+            name: "schema.oasf.agntcy.org/features/observability",
             version: "v0.2.2"
           })
         end,
@@ -642,7 +642,7 @@ defmodule SchemaWeb.SchemaController do
                   },
                   export_format: "csv"
                 },
-                name: "schema.oasf.agntcy.org/feature/observability",
+                name: "schema.oasf.agntcy.org/features/observability",
                 version: "v0.2.2"
               }
             ]
@@ -1140,22 +1140,6 @@ defmodule SchemaWeb.SchemaController do
   @spec dictionary(map) :: map
   def dictionary(params) do
     parse_options(extensions(params)) |> Schema.dictionary()
-  end
-
-  @doc """
-  Returns the list of classes.
-  """
-  @spec classes(map) :: map
-  def classes(params) do
-    extensions = parse_options(extensions(params))
-
-    case parse_options(profiles(params)) do
-      nil ->
-        Schema.classes(extensions)
-
-      profiles ->
-        Schema.classes(extensions, profiles)
-    end
   end
 
   @doc """

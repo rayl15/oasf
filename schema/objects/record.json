@@ -1,8 +1,8 @@
 {
-  "caption": "Agent Record",
+  "caption": "Record",
   "description": "The data model defines a schema for AI agent content representation. The schema provides a way to describe agent's features, constraints, artifact locators, versioning, ownership, or relevant details.",
   "extends": "object",
-  "name": "agent_record",
+  "name": "record",
   "attributes": {
     "name": {
       "caption": "Agent Name",
@@ -55,7 +55,7 @@
       "requirement": "recommanded"
     },
     "signature": {
-      "reference": "agent_signature",
+      "reference": "signature",
       "caption": "Signature",
       "description": "A digital signature of the agent data model. This is used to verify the authenticity and integrity of the agent.",
       "requirement": "required"

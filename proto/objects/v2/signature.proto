@@ -5,12 +5,12 @@ syntax = "proto3";
 
 package objects.v2;
 
-// Signature provides the signing and verification details about the agent record.
+// Signature provides the signing and verification details about the record.
 message Signature {
   // Metadata associated with the signature.
   map<string, string> annotations = 1;
 
-  // Signing timestamp of the agent record in the RFC3339 format.
+  // Signing timestamp of the record in the RFC3339 format.
   // Specs: https://www.rfc-editor.org/rfc/rfc3339.html
   string signed_at = 2;
 

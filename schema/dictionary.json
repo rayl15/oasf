@@ -24,10 +24,10 @@
       "description": "Agent identifier",
       "type": "uuid_t"
     },
-    "agent_signature": {
+    "signature": {
       "caption": "Signature",
       "description": "A digitital signature is used to verify the authenticity and integrity of the data. See specific usage.",
-      "type": "agent_signature"
+      "type": "signature"
     },
     "algorithm": {
       "caption": "Algorithm",

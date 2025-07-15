@@ -1,8 +1,8 @@
 {
-  "caption": "Agent Signature",
-  "description": "Signature provides the signing and verification details about the agent record.",
+  "caption": "Signature",
+  "description": "Signature provides the signing and verification details about the record.",
   "extends": "object",
-  "name": "agent_signature",
+  "name": "signature",
   "attributes": {
     "annotations": {
       "caption": "Annotations",
